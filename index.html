@@ -1,10 +1,9 @@
-# <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Sinh Nhật! 🎆</title>
-    <!-- Thư viện pháo giấy -->
+    <title>Chúc Mừng Sinh Nhật Linh Dân! 🎆</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap');
@@ -16,8 +15,8 @@
         }
 
         body {
-            background: radial-gradient(circle at bottom, #1b2735 0%, #090a0f 100%);
-            height: 100vh;
+            background: radial-gradient(circle at bottom, #1f2b3e 0%, #090a0f 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,7 +25,6 @@
             position: relative;
         }
 
-        /* Canvas pháo hoa nằm phía sau thiệp */
         #fireworksCanvas {
             position: fixed;
             top: 0;
@@ -37,17 +35,34 @@
             pointer-events: none;
         }
 
+        .floating-emoji {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear forwards;
+            opacity: 0.85;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
         .card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.13);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 24px;
-            padding: 40px 30px;
+            border-radius: 26px;
+            padding: 36px 28px;
             text-align: center;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 460px;
+            width: 92%;
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.55);
             animation: float 3.5s ease-in-out infinite;
             position: relative;
             z-index: 2;
@@ -56,47 +71,95 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-9px); }
+        }
+
+        .cake-wrap {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            user-select: none;
+            margin-bottom: 8px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            animation: flicker 0.25s infinite alternate;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .flame.blown {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.2);
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-4deg); }
+            100% { transform: translateX(-50%) scale(1.12) rotate(4deg); }
         }
 
         .cake {
             font-size: 64px;
-            margin-bottom: 10px;
             display: inline-block;
-            animation: bounce 1.5s infinite;
-            filter: drop-shadow(0 0 15px rgba(255, 180, 200, 0.6));
+            animation: bounce 1.6s infinite;
+            filter: drop-shadow(0 0 16px rgba(255, 190, 210, 0.65));
         }
 
         @keyframes bounce {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.1); }
+        }
+
+        .cake-hint {
+            font-size: 0.78rem;
+            color: #ffeaa7;
+            opacity: 0.85;
+            margin-bottom: 6px;
         }
 
         h1 {
             font-family: 'Pacifico', cursive;
             color: #ff6b81;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.4rem;
+            margin-bottom: 8px;
             text-shadow: 0 0 20px rgba(255, 107, 129, 0.5);
         }
 
         .name {
             color: #ffeaa7;
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         p {
             color: #f1f2f6;
-            font-size: 1.08rem;
+            font-size: 1.06rem;
             line-height: 1.65;
-            margin-bottom: 30px;
+            margin-bottom: 16px;
+        }
+
+        .wish-box {
+            background: rgba(255, 234, 167, 0.14);
+            border: 1px dashed rgba(255, 234, 167, 0.5);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 0.95rem;
+            color: #ffeaa7;
+            margin-bottom: 24px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-group {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -105,19 +168,24 @@
             background: linear-gradient(45deg, #ff4757, #ff6b81);
             color: white;
             border: none;
-            padding: 12px 22px;
-            font-size: 0.98rem;
+            padding: 11px 18px;
+            font-size: 0.92rem;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.45);
+            box-shadow: 0 6px 18px rgba(255, 71, 87, 0.42);
             transition: transform 0.2s, box-shadow 0.2s;
             font-family: 'Quicksand', sans-serif;
         }
 
         button.secondary {
             background: linear-gradient(45deg, #ffa502, #ff7f50);
-            box-shadow: 0 6px 20px rgba(255, 165, 2, 0.4);
+            box-shadow: 0 6px 18px rgba(255, 165, 2, 0.38);
+        }
+
+        button.music-btn {
+            background: linear-gradient(45deg, #2ed573, #1e90ff);
+            box-shadow: 0 6px 18px rgba(30, 144, 255, 0.38);
         }
 
         button:hover {
@@ -134,25 +202,33 @@
     <canvas id="fireworksCanvas"></canvas>
 
     <div class="card">
-        <div class="cake">🎂</div>
+        <div class="cake-wrap" onclick="blowCandle()" title="Bấm để thổi nến">
+            <div class="flame" id="flame">🕯️</div>
+            <div class="cake">🎂</div>
+        </div>
+        <div class="cake-hint" id="cakeHint">👆 Bấm vào bánh để thổi nến &amp; nhận điều ước</div>
+
         <h1>Happy Birthday!</h1>
-        <!-- SỬA TÊN NGƯỜI NHẬN Ở ĐÂY -->
-        <div class="name">Linh Dân</div>
-        
-        <!-- SỬA LỜI CHÚC Ở ĐÂY -->
+        <div class="name"> Linh Dân </div>
+
         <p>
-                      Mừng Thọ 18 Tỏi
-          Chúc Tuổi Mới Tiền Đầy Nhà Gà Đầy Chuồng
+            Mừng Thọ 18 Tỏi<br>
+            Chúc Tuổi Mới Tiền Đầy Nhà Gà Đầy Chuồng 
         </p>
+
+        <div class="wish-box" id="wishBox">
+            Nhấn "Bắn pháo hoa" hoặc thổi nến để mở điều ước tuổi mới nhé! 🎁
+        </div>
 
         <div class="btn-group">
             <button onclick="launchBigShow()">Bắn pháo hoa 🎆</button>
             <button class="secondary" onclick="fireConfetti()">Tung pháo giấy 🎉</button>
+            <button class="music-btn" id="musicBtn" onclick="toggleMusic()">Bật nhạc 🎵</button>
         </div>
     </div>
 
     <script>
-        // --- 1. HIỆU ỨNG PHÁO GIẤY ---
+        // --- 1. PHÁO GIẤY ---
         function fireConfetti() {
             confetti({
                 particleCount: 120,
@@ -161,7 +237,110 @@
             });
         }
 
-        // --- 2. HIỆU ỨNG PHÁO HOA BẦU TRỜI ĐÊM ---
+        // --- 2. MƯA ICON LỘC LÁ ---
+        const icons = ['💰', '🐔', '🧧', '✨', '🎉', '💖'];
+        function spawnEmoji() {
+            const el = document.createElement('div');
+            el.className = 'floating-emoji';
+            el.textContent = icons[Math.floor(Math.random() * icons.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = (4 + Math.random() * 4) + 's';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 8000);
+        }
+        setInterval(spawnEmoji, 900);
+
+        // --- 3. THỔI NẾN & ĐIỀU ƯỚC ---
+        const wishes = [
+            "18 tỏi vào tài khoản, tiền đếm mỏi tay, gà đẻ đều như vắt chanh! 💰🐔",
+            "Tuổi mới ăn ngon ngủ kỹ, đi đâu cũng gặp may, việc gì cũng thuận lợi! 🌟",
+            "Chúc Linh Dân rực rỡ như pháo hoa, cười nhiều như trúng số độc đắc! 🎆🍀",
+            "Sức khỏe dồi dào, ví tiền rủng rỉnh, niềm vui nhân đôi mỗi ngày! 💖🥳"
+        ];
+        let candleBlown = false;
+
+        function blowCandle() {
+            const flame = document.getElementById('flame');
+            const hint = document.getElementById('cakeHint');
+            const wishBox = document.getElementById('wishBox');
+
+            if (!candleBlown) {
+                flame.classList.add('blown');
+                candleBlown = true;
+                hint.textContent = "✨ Nến đã tắt! Bấm lần nữa để thắp lại nhé";
+                launchBigShow();
+            } else {
+                flame.classList.remove('blown');
+                candleBlown = false;
+                hint.textContent = "👆 Bấm vào bánh để thổi nến & nhận điều ước";
+            }
+
+            const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+            wishBox.textContent = randomWish;
+        }
+
+        // --- 4. NHẠC NỀN HAPPY BIRTHDAY (WEB AUDIO API) ---
+        let audioCtx = null;
+        let isPlaying = false;
+        let musicTimer = null;
+
+        // Tần số (Hz) và độ dài nốt của giai điệu Happy Birthday
+        const melody = [
+            [261.63, 0.35], [261.63, 0.25], [293.66, 0.6], [261.63, 0.6], [349.23, 0.6], [329.63, 1.0],
+            [261.63, 0.35], [261.63, 0.25], [293.66, 0.6], [261.63, 0.6], [392.00, 0.6], [349.23, 1.0],
+            [261.63, 0.35], [261.63, 0.25], [523.25, 0.6], [440.00, 0.6], [349.23, 0.6], [329.63, 0.6], [293.66, 1.0],
+            [466.16, 0.35], [466.16, 0.25], [440.00, 0.6], [349.23, 0.6], [392.00, 0.6], [349.23, 1.2]
+        ];
+
+        function playMelodyLoop() {
+            if (!isPlaying || !audioCtx) return;
+            let currentTime = audioCtx.currentTime;
+            let totalDuration = 0;
+
+            melody.forEach(([freq, dur]) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, currentTime);
+
+                gain.gain.setValueAtTime(0.001, currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.12, currentTime + 0.03);
+                gain.gain.exponentialRampToValueAtTime(0.001, currentTime + dur - 0.02);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(currentTime);
+                osc.stop(currentTime + dur);
+
+                currentTime += dur;
+                totalDuration += dur;
+            });
+
+            musicTimer = setTimeout(playMelodyLoop, totalDuration * 1000 + 400);
+        }
+
+        function toggleMusic() {
+            const btn = document.getElementById('musicBtn');
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            if (!isPlaying) {
+                isPlaying = true;
+                btn.textContent = "Tắt nhạc 🔇";
+                playMelodyLoop();
+            } else {
+                isPlaying = false;
+                clearTimeout(musicTimer);
+                btn.textContent = "Bật nhạc 🎵";
+            }
+        }
+
+        // --- 5. PHÁO HOA BẦU TRỜI ĐÊM ---
         const canvas = document.getElementById('fireworksCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -192,7 +371,6 @@
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                // Khi tới gần điểm nổ
                 if (Math.hypot(this.targetX - this.x, this.targetY - this.y) < 15 || this.vy >= 0) {
                     explode(this.x, this.y, this.color);
                     return false;
@@ -250,7 +428,6 @@
             }
         }
 
-        // Bắn liên hoàn khi bấm nút hoặc mở trang
         function launchBigShow() {
             for (let i = 0; i < 6; i++) {
                 setTimeout(() => {
@@ -260,14 +437,12 @@
             fireConfetti();
         }
 
-        // Cho phép bấm thẳng vào vùng trống trên màn hình để bắn pháo hoa tại vị trí đó
         window.addEventListener('click', (e) => {
-            if (e.target.tagName !== 'BUTTON') {
+            if (e.target.tagName !== 'BUTTON' && !e.target.closest('.cake-wrap')) {
                 rockets.push(new Rocket(e.clientX, e.clientY));
             }
         });
 
-        // Pháo hoa bắn lai rai tự động
         setInterval(() => {
             if (rockets.length < 4) {
                 rockets.push(new Rocket());
@@ -275,7 +450,6 @@
         }, 1400);
 
         function animate() {
-            // Tạo vệt mờ nhẹ để pháo hoa có đuôi sáng
             ctx.fillStyle = 'rgba(9, 10, 15, 0.2)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -301,4 +475,4 @@
     </script>
 
 </body>
-</html>linh-d-n
+</html>
